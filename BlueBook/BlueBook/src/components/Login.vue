@@ -16,7 +16,7 @@
       <el-form-item label="学号" prop="studentId">
         <el-input
             v-model="form.studentId"
-            placeholder="请输入6位学号"
+            placeholder="请输入10位学号"
             clearable
         />
       </el-form-item>
@@ -64,7 +64,7 @@ export default {
     const validateStudentId = (rule, value, callback) => {
       const numericPattern = /^\d{10}$/;
       if (!numericPattern.test(value)) {
-        callback(new Error("学号必须为6位数字"));
+        callback(new Error("学号必须为10位数字"));
       } else {
         callback();
       }
@@ -133,6 +133,10 @@ export default {
       });
     },
     handleGithubLogin() {
+      axios
+          .post("/api/auth/login", {
+            authProvider: "GITHUB",
+          })
       const clientId = 'Ov23ctx46pToVBNYJ8EV';
       // 同时向后端发送authProvider:"GITHUB"
       const redirectUri = 'http://localhost:8080/oauth/github/callback';
